@@ -6,8 +6,7 @@
 #include <math.h>
 
 int main(){
-  int numThreads = 2;
-  
+  int numThreads            = 8; 
   const unsigned int width  = 1600;
   const unsigned int height = 1200;
   const int maxIterations   = 256;
@@ -21,11 +20,12 @@ int main(){
   for (int i = 0; i < 5; ++i) {
     memset(output, 0, width * height * sizeof(int));
     double startTime = currentSeconds();
-    mandelbrotSerial(p0, p1, width, height, 0, height, maxIterations, output);
+    // mandelbrotSerial(p0, p1, width, height, 0, height, maxIterations, output);
+    mandelbrotParallel(numThreads, p0, p1, width, height, maxIterations, output);
     double endTime = currentSeconds();
     minThread = fminf(minThread, endTime - startTime);
   }
 
   printf("[mandelbrot time]:\t\t[%.3f] ms\n", minThread * 1000);
-  write_PNG(output, width, height, "mandelbrot.png", maxIterations);
+  writePNG(output, width, height, "mandelbrot.png", maxIterations);
 }

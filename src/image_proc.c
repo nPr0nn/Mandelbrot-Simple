@@ -7,7 +7,7 @@
 
 #include "../headers/image_proc.h"
 
-unsigned char* rgb_from_iteration(int intensity, int max_inter) {
+unsigned char* rgb_from_iteration(int intensity, int maxInterations) {
   unsigned char* color = (unsigned char*)malloc(3 * sizeof(unsigned char));
 
   unsigned char red, green, blue; 
@@ -20,16 +20,16 @@ unsigned char* rgb_from_iteration(int intensity, int max_inter) {
   return color;
 }
 
-void write_PNG(int* data, int width, int height, const char *filename, int max_inter){ 
+void writePNG(int* data, int width, int height, const char *filename, int maxInterations){ 
 
   unsigned char* image_data = (unsigned char*) malloc(width * height * 3 * sizeof(unsigned char));
   
   for(int i = 0; i < width*height; i++){
 
-    float mapped = pow( fminf((float)max_inter, (float)data[i]/256.f), 0.5f);
+    float mapped = pow( fminf((float) maxInterations, (float)data[i]/256.f), 0.5f);
     unsigned char result = (unsigned char)(255.f * mapped);
     
-    unsigned char* color = rgb_from_iteration(result, max_inter);
+    unsigned char* color = rgb_from_iteration(result, maxInterations);
   
     image_data[i*3]   = color[0];
     image_data[i*3+1] = color[1];

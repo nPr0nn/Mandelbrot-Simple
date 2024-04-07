@@ -7,7 +7,7 @@ typedef struct vec2f{
 } vec2f;
 #define square(x) ((x) * (x))
 
-static inline int mandelbrot(float c_re, float c_im, int count);
-void mandelbrotSerial(vec2f p0, vec2f p1, int width, int height, int startRow, int endRow, int max_inter, int output[]);
+void mandelbrotSerial(vec2f p0, vec2f p1, int width, int height, int startRow, int endRow, int maxInterations, int output[]);
+void mandelbrotParallel(int numThreads, vec2f p0, vec2f p1, int width, int height, int maxIterations, int output[]);
 
 #endif
